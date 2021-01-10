@@ -22,5 +22,14 @@ namespace GrpcService.Services
 
             return Task.FromResult(output);
         }
+
+        public override Task<CategoryModel> CreateNewCategory(CategoryModel request, ServerCallContext context)
+        {
+            CategoryModel newCategoryModel = new CategoryModel();
+
+
+
+            return Task.FromResult(newCategoryModel);
+        }
     }
 }

@@ -10,18 +10,14 @@ using System.Threading.Tasks;
 using GrpcService.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using DbContext = GrpcServer.DataAccess.DbContext;
+using DbContext = GrpcServer.DataAccess.DatabaseContext;
 
 namespace GrpcService
 {
     public class Startup
     {
-        public Startup(IConfiguration config)
-        {
-            config = _config;
-        }
-
         public IConfiguration _config { get; set; }
+        public Startup(IConfiguration config) => config = _config;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -30,7 +26,7 @@ namespace GrpcService
             services.AddGrpc();
 
             services.AddDbContext<DbContext>(options =>
-                options.UseNpgsql("Server=localhost;Port=5432;Database=ProductGRPC;User Id=postgres;Password=1234"));
+                options.UseNpgsql("Server=localhost;Port=5432;Database=grpcService;User Id=postgres;Password=1234"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
