@@ -12,5 +12,9 @@ namespace GrpcServer.Interfaces
     {
         public Task<Category> AddCategory(CategoryModel category);
         public Task<Category> GetCategory(int id);
+
+        public Task<Category> DeleteCategory(int id);
+
+        public Task<Category> ModifyCategory(int id, CategoryModel category);
     }
 }

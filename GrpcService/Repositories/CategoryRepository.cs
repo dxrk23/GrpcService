@@ -37,5 +37,21 @@ namespace GrpcServer.Repositories
         {
             return await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
+
+        public async Task<Category> DeleteCategory(int id)
+        {
+            var categoryToDelete = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            _context.Categories.Remove(categoryToDelete);
+            await _context.SaveChangesAsync();
+            return categoryToDelete;
+        }
+
+        public async Task<Category> ModifyCategory(int id, CategoryModel category)
+        {
+            var categoryToModify = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            categoryToModify.Name = category.Name;
+            await _context.SaveChangesAsync();
+            return categoryToModify;
+        }
     }
 }
