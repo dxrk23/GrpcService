@@ -19,11 +19,11 @@ namespace grpcClient.Controllers
             var channel = GrpcChannel.ForAddress("https://localhost:5001");
             var client = new Product.ProductClient(channel);
 
-            var clientRequested = new ProductLookupModel { Id = 1 };
+            //var clientRequested = new CategoryModel() { Name = "Phone" };
 
-            var product = await client.GetProductInfoAsync(clientRequested);
+            //var product = await client.CreateNewCategoryAsync(clientRequested);
 
-            Console.WriteLine($"{product.Name} {product.Price}");
+            //Console.WriteLine($"{product.Name}");
 
             return Ok();
         }

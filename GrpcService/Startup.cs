@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GrpcServer.Interfaces;
+using GrpcServer.Repositories;
 using GrpcService.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,8 @@ namespace GrpcService
 
             services.AddDbContext<DbContext>(options =>
                 options.UseNpgsql("Server=localhost;Port=5432;Database=grpcService;User Id=postgres;Password=1234"));
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
