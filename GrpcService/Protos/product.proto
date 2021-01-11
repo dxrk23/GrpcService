@@ -6,7 +6,7 @@ service Product{
 	rpc GetProductInfo (ProductLookupModel) returns (ProductModel);
 	rpc CreateNewCategory (CategoryModel) returns (CategoryModel);
 	rpc GetCategoryInfo (CategoryLookupModel) returns (CategoryModel);
-
+	rpc CreateNewProduc (ProductModel) returns (ProductModel);
 }
 
 message ProductLookupModel{

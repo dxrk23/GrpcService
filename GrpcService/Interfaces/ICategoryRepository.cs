@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GrpcServer.Model;
 using GrpcService;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GrpcServer.Interfaces
 {

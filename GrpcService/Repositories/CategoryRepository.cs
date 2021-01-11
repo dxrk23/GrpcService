@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GrpcServer.DataAccess;
 using GrpcServer.Interfaces;
 using GrpcServer.Model;
 using GrpcService;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrpcServer.Repositories
@@ -22,7 +18,7 @@ namespace GrpcServer.Repositories
 
         public async Task<Category> AddCategory(CategoryModel category)
         {
-            var newCategory = new Category()
+            var newCategory = new Category
             {
                 Name = category.Name
             };
