@@ -19,13 +19,6 @@ namespace GrpcService.Services
             _productRepository = productRepository;
         }
 
-        public override Task<ProductModel> GetProductInfo(ProductLookupModel request, ServerCallContext context)
-        {
-            var output = new ProductModel();
-
-            return Task.FromResult(output);
-        }
-
         public override async Task<CategoryModel> CreateNewCategory(CategoryModel request, ServerCallContext context)
         {
             var result = await _categoryRepository.AddCategory(request);
@@ -37,8 +30,7 @@ namespace GrpcService.Services
             return await Task.FromResult(newCategoryModel);
         }
 
-        public override async Task<CategoryModel> GetCategoryInfo(CategoryLookupModel request,
-            ServerCallContext context)
+        public override async Task<CategoryModel> GetCategoryInfo(CategoryLookupModel request, ServerCallContext context)
         {
             var result = await _categoryRepository.GetCategory(request.Id);
 
@@ -48,6 +40,26 @@ namespace GrpcService.Services
             };
 
             return await Task.FromResult(category);
+        }
+
+        public override Task<ProductModel> CreateNewProduct(ProductModel request, ServerCallContext context)
+        {
+            return base.CreateNewProduct(request, context);
+        }
+
+        public override async Task<ProductModel> GetProductInfo(ProductLookupModel request, ServerCallContext context)
+        {
+            var result = await _productRepository.GetProduct(request.Id);
+
+            var product = new ProductModel()
+            {
+                Name = result.Name,
+                Description = result.Description,
+                Price = result.Price,
+                CategoryId = result.CategoryId,
+            };
+
+            return await Task.FromResult(product);
         }
     }
 }

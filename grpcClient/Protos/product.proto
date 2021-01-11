@@ -4,9 +4,18 @@ option csharp_namespace = "GrpcService";
 
 service Product{
 	rpc GetProductInfo (ProductLookupModel) returns (ProductModel);
+	rpc CreateNewProduct (ProductModel) returns (ProductModel);
+	rpc DeleteProduct (ProductLookupModel) returns (ProductModel);
+	rpc ModifyProduct (ProductModel) returns (ProductModel);
+	rpc ChangeProductCategory (ProductLookupModel) returns (ProductModel);
+	rpc GetProductsByCategory (CategoryLookupModel) returns (ProductModel);
+
+
 	rpc CreateNewCategory (CategoryModel) returns (CategoryModel);
 	rpc GetCategoryInfo (CategoryLookupModel) returns (CategoryModel);
-
+	rpc DeleteCategory (CategoryLookupModel) returns (CategoryModel);
+	rpc ModifyCategory (CategoryModel) returns (CategoryModel);
+	
 }
 
 message ProductLookupModel{
@@ -16,7 +25,7 @@ message ProductLookupModel{
 message ProductModel{
 	string name = 1;
 	int32 price = 2;
-	string category = 3;
+	int32 categoryId = 3;
 	string description = 4;
 }
 

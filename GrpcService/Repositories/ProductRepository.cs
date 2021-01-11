@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GrpcServer.DataAccess;
 using GrpcServer.Interfaces;
 using GrpcService;
+using Microsoft.EntityFrameworkCore;
 using Product = GrpcServer.Model.Product;
 
 namespace GrpcServer.Repositories
@@ -17,34 +19,63 @@ namespace GrpcServer.Repositories
             _context = context;
         }
 
-        public Task<Product> AddProduct(ProductModel product)
+        public async Task<Product> AddProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            var newProduct = new Product()
+            {
+                Name = product.Name,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                Price = product.Price,
+            };
+
+            await _context.Products.AddAsync(newProduct);
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(newProduct);
         }
 
-        public Task<Product> GetProduct(int id)
+        public async Task<Product> GetProduct(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public Task<Product> DeleteProduct(int id)
+        public async Task<Product> DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            var productToDelete = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            _context.Products.Remove(productToDelete);
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(productToDelete);
         }
 
-        public Task<Product> ModifyProduct(int id, ProductModel product)
+        public async Task<Product> ModifyProduct(int id, ProductModel product)
         {
-            throw new NotImplementedException();
+            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            productToModify.Name = product.Name;
+            productToModify.CategoryId = product.CategoryId;
+            productToModify.Price = product.Price;
+            productToModify.Description = product.Description;
+
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(productToModify);
         }
 
-        public Task<Product> ChangeCategory(int productId, int categoryId)
+        public async Task<Product> ChangeCategory(int productId, int categoryId)
         {
-            throw new NotImplementedException();
+            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(productId));
+            productToModify.CategoryId = categoryId;
+
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(productToModify);
         }
 
-        public Task<List<Product>> GetProductsByCategory(int id)
+        public async Task<List<Product>> GetProductsByCategory(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Where(x => x.Category.Id.Equals(id)).ToListAsync();
         }
     }
 }
