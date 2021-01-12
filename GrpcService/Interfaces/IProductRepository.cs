@@ -12,9 +12,9 @@ namespace GrpcServer.Interfaces
 
         public Task<Product> DeleteProduct(int id);
 
-        public Task<Product> ModifyProduct(int id, ProductModel product);
+        public Task<Product> ModifyProduct(ProductModifyModel productModifyModel);
 
-        public Task<Product> ChangeCategory(int productId, int categoryId);
+        public Task<Product> ChangeCategory(ChangeProductCategoryModel changeProductCategoryModel);
 
         public Task<List<Product>> GetProductsByCategory(int id);
     }

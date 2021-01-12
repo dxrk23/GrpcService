@@ -42,10 +42,10 @@ namespace GrpcServer.Repositories
             return categoryToDelete;
         }
 
-        public async Task<Category> ModifyCategory(int id, CategoryModel category)
+        public async Task<Category> ModifyCategory(ModifyCategoryModel categoryModel)
         {
-            var categoryToModify = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(id));
-            categoryToModify.Name = category.Name;
+            var categoryToModify = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(categoryModel.Id));
+            categoryToModify.Name = categoryModel.NewName;
             await _context.SaveChangesAsync();
             return categoryToModify;
         }

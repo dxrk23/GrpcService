@@ -6,15 +6,15 @@ service Product{
 	rpc GetProductInfo (ProductLookupModel) returns (ProductModel);
 	rpc CreateNewProduct (ProductModel) returns (ProductModel);
 	rpc DeleteProduct (ProductLookupModel) returns (ProductModel);
-	rpc ModifyProduct (ProductModel) returns (ProductModel);
-	rpc ChangeProductCategory (ProductLookupModel) returns (ProductModel);
-	rpc GetProductsByCategory (CategoryLookupModel) returns (ProductModel);
+	rpc ModifyProduct (ProductModifyModel) returns (ProductModel);
+	rpc ChangeProductCategory (ChangeProductCategoryModel) returns (ProductModel);
+	rpc GetProductsByCategory (CategoryLookupModel) returns (GetProductsByCategoryModel);
 
 
 	rpc CreateNewCategory (CategoryModel) returns (CategoryModel);
 	rpc GetCategoryInfo (CategoryLookupModel) returns (CategoryModel);
 	rpc DeleteCategory (CategoryLookupModel) returns (CategoryModel);
-	rpc ModifyCategory (CategoryModel) returns (CategoryModel);
+	rpc ModifyCategory (ModifyCategoryModel) returns (CategoryModel);
 	
 }
 
@@ -27,6 +27,28 @@ message ProductModel{
 	int32 price = 2;
 	int32 categoryId = 3;
 	string description = 4;
+}
+
+message GetProductsByCategoryModel{
+	repeated ProductModel producs = 1;
+}
+
+message ProductModifyModel{
+	int32 id = 1;
+	string name = 2;
+	int32 price = 3;
+	int32 categoryId = 4;
+	string description = 5;
+}
+
+message ModifyCategoryModel{
+	int32 id = 1;
+	string newName = 2;
+}
+
+message ChangeProductCategoryModel{
+	int32 productId = 1;
+	int32 categoryId = 2;
 }
 
 

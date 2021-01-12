@@ -49,9 +49,9 @@ namespace GrpcServer.Repositories
             return await Task.FromResult(productToDelete);
         }
 
-        public async Task<Product> ModifyProduct(int id, ProductModel product)
+        public async Task<Product> ModifyProduct(ProductModifyModel product)
         {
-            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(product.Id));
 
             productToModify.Name = product.Name;
             productToModify.CategoryId = product.CategoryId;
@@ -63,10 +63,10 @@ namespace GrpcServer.Repositories
             return await Task.FromResult(productToModify);
         }
 
-        public async Task<Product> ChangeCategory(int productId, int categoryId)
+        public async Task<Product> ChangeCategory(ChangeProductCategoryModel product)
         {
-            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(productId));
-            productToModify.CategoryId = categoryId;
+            var productToModify = await _context.Products.FirstOrDefaultAsync(x => x.Id.Equals(product.ProductId));
+            productToModify.CategoryId = product.CategoryId;
 
             await _context.SaveChangesAsync();
 
